@@ -3,8 +3,8 @@ package com.userservice.kafka;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import com.userservice.User.model.user;
 
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class kafkaproducer {
         try {
             kafkaTemplate.send(USER_EVENTS_TOPIC, key, objectMapper.writeValueAsString(event));
             log.info("Published USER_CREATED event for user {}", key);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             log.error("Failed to serialize USER_CREATED event for user {}", key, e);
         }
     }
